@@ -1,8 +1,21 @@
 import express from "express";
-import { adminLogin } from "../controllers/admin.controller.js";
+import {
+  adminLogin,
+  approveCommentById,
+  deleteCommentById,
+  getAllBlogsAdmin,
+  getAllComments,
+  getDashboard,
+} from "../controllers/admin.controller.js";
+import auth from "../middleware/Auth.js";
 
 const adminRouter = express.Router();
 
 adminRouter.post("/login", adminLogin);
+adminRouter.get("/comments", auth, getAllComments);
+adminRouter.get("/blogs", auth, getAllBlogsAdmin);
+adminRouter.post("/delete-comments", auth, deleteCommentById);
+adminRouter.post("/approve-comment", auth, approveCommentById);
+adminRouter.get("/dashboard", auth, getDashboard);
 
 export default adminRouter;
